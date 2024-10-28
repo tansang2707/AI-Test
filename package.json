@@ -67,7 +67,8 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.0",
     "web3": "^1.8",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.12",
