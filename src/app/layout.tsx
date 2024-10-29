@@ -3,18 +3,19 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-import Layout from "./components/Layout";
-import Coin98AdapterProvider from "./providers/Coin98WalletProvider";
-import Coin98AdapterModal from "./providers/Coin98AdapterModal";
-import AppProvider from "./providers/AppProvider";
+import Layout from "@/components/Layout";
+import Coin98AdapterProvider from "@/providers/Coin98WalletProvider";
+import Coin98AdapterModal from "@/providers/Coin98AdapterModal";
+import AppProvider from "@/providers/AppProvider";
+import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
@@ -30,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -47,6 +48,7 @@ export default function RootLayout({
           </AppProvider>
           <Coin98AdapterModal />
         </Coin98AdapterProvider>
+        <Toaster />
       </body>
     </html>
   );

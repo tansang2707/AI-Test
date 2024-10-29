@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { FunctionComponent, useMemo } from "react";
 import {
   Select,
@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/select";
 
 import { TOKEN_ADDRESS } from "./constants";
-import { CHAIN_DATA } from "@/app/common/constant";
+import { CHAIN_DATA } from "@/common/constant";
 
 import get from "lodash/get";
+import { Icon } from "@/components/Icon";
 
 interface ISelectChain {
   selectedValue: string;
@@ -35,32 +36,18 @@ const SelectChain: FunctionComponent<ISelectChain> = ({
     return Object.keys(TOKEN_ADDRESS[token]);
   }, [token]);
 
-  const mapChainOption = (chain: string) => {
-    return {
-      title: get(CHAIN_DATA, `${chain}.name`) || '',
-      value: chain,
-      symbol: get(CHAIN_DATA, `${chain}.symbol`) || '',
-      image: get(CHAIN_DATA, `${chain}.image`) || '',
-    };
-  };
-
-  const mapChainOptions = (Object.keys(CHAIN_DATA) || []).reduce(
-    (res: Item[], chain: string) => {
-      if (listChain.includes(chain)) {
-        return [...res, mapChainOption(chain)];
-      } else {
-        return res;
-      }
-    },
-    []
-  );
-
   const renderItem = () => {
-    return listChain.map((it: string) => (
-      <SelectItem value={it} key={it}>
-        {it}
-      </SelectItem>
-    ));
+    return listChain.map((it: string) => {
+      const currentChain = get(CHAIN_DATA, it);
+      return (
+        <SelectItem value={it} key={it}>
+          <div className="flex items-center">
+            <Icon iconName={currentChain?.image} />
+            <span className="ml-1">{currentChain?.name}</span>
+          </div>
+        </SelectItem>
+      );
+    });
   };
 
   return (

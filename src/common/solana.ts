@@ -4,7 +4,7 @@ import {
     Token,
   } from "@solana/spl-token";
   import { Connection, PublicKey } from "@solana/web3.js";
-  import { convertWeiToBalance } from "utils";
+  import { convertWeiToBalance } from "./utils/convertPrice";
   
   export const genConnectionSolana = () => {
     const connectionSolana = new Connection(

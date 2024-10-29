@@ -24,9 +24,9 @@ export default function SignInPage() {
         password: formData.password
       })
       
-      const { token } = response.data
-      localStorage.setItem('jwt_adapter', token)
-      localStorage.setItem('jwt', token)
+      const { code } = response.data
+      localStorage.setItem('jwt_adapter', code)
+      localStorage.setItem('jwt', code)
       
       router.push('/')
     } catch (error) {
@@ -39,12 +39,6 @@ export default function SignInPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-black">
       <div className="w-full max-w-md p-8 space-y-6 rounded-lg bg-black/50 backdrop-blur-sm">
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-8 h-8 bg-yellow-400 rounded-full" />
-          <h1 className="text-2xl font-bold text-yellow-400">
-            COIN98 ADMIN
-          </h1>
-        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input

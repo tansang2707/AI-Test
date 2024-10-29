@@ -1,13 +1,5 @@
-"use client";
-import React from "react";
-import dynamic from "next/dynamic";
+import { redirect } from "next/navigation";
 
-const BurnMintToken = dynamic(() => import("./views/BurnMintToken"), {
-  ssr: false,
-});
-
-const Home = () => {
-  return <BurnMintToken />;
-};
-
-export default Home;
+export default function Page() {
+  redirect("/burn-mint-token");
+}

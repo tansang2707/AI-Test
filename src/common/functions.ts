@@ -89,3 +89,19 @@ export const getChainNameById = (chainId: string) => {
   );
   return chain ? get(CHAIN_DATA, `${chain}.name`, "") : "";
 };
+
+export const getChainById = (chainId: string) => {
+  const chain = Object.keys(CHAIN_DATA).find(
+    (it) => get(CHAIN_DATA, `${it}.chainId`, "") === chainId
+  );
+  return chain || ''
+};
+
+export const getChainSymbol = (chain: string) =>
+  get(get(CHAIN_DATA, chain), 'symbol', '');
+
+export const upperCaseFirstLetter = (lower) => {
+  if (!lower) return lower;
+  const upper = lower.replace(/^\w/, (chr) => chr.toUpperCase());
+  return upper;
+};
