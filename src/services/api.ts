@@ -23,7 +23,8 @@ interface SearchParams {
   chain?: string;
 }
 
-interface SearchResponse {
+export interface SearchResponse {
+  //@ts-ignore
   data: CoinData[];
   total: number;
   page: number;

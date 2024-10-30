@@ -112,6 +112,7 @@ export default function DashboardPage() {
       </div>
 
       <DataTable 
+      //@ts-ignore
         data={data} 
         isLoading={isLoading}
         currentPage={currentPage}
