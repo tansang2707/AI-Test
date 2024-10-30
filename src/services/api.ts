@@ -23,9 +23,15 @@ interface SearchParams {
   chain?: string;
 }
 
-export const searchCoins = async (params: SearchParams) => {
+interface SearchResponse {
+  data: CoinData[];
+  total: number;
+  page: number;
+}
+
+export const searchCoins = async (params: SearchParams): Promise<SearchResponse> => {
   const { page, size = 100, keyword = '', chain = '' } = params;
-  
+
   try {
     const response = await axios.post(
       'https://superwallet-markets-stg.coin98.dev/api/coin/search/admx',
@@ -36,8 +42,8 @@ export const searchCoins = async (params: SearchParams) => {
         chain: chain === 'all' ? '' : chain
       }
     );
-    
-    return response.data?.data || [];
+
+    return response.data as SearchResponse;
   } catch (error) {
     console.error('Error fetching coins:', error);
     throw error;

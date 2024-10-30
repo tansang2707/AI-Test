@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { 
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue 
 } from "@/components/ui/select";
+import Chain from "@/components/Chain";
+import { CHAIN_DATA } from "@/common/constant";
 import { DataTable } from "./components/DataTable";
 import { CoinFormModal } from "./components/CoinFormModal";
-import { searchCoins } from "@/services/api";
+import { searchCoins, SearchResponse } from "@/services/api";
 
 interface CoinData {
   id: string;
@@ -21,7 +23,7 @@ interface CoinData {
   vault: boolean;
 }
 
-const CHAIN_OPTIONS = ["all", "Sui", "Ethereum", "Solana", "Binance"];
+const CHAIN_OPTIONS = ["all", ...Object.keys(CHAIN_DATA)];
 
 export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,19 +32,24 @@ export default function DashboardPage() {
   const [data, setData] = useState<CoinData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 100;
 
   const fetchData = async (keyword: string, chain: string, page: number) => {
     setIsLoading(true);
     try {
-      const result = await searchCoins({
+      const result: SearchResponse = await searchCoins({
         page,
+        size: pageSize,
         keyword,
         chain
       });
-      setData(result);
+      setData(result.data);
+      setTotalPages(Math.ceil(result.total / pageSize));
     } catch (error) {
       console.error('Error fetching coins:', error);
       setData([]);
+      setTotalPages(1);
     } finally {
       setIsLoading(false);
     }
@@ -63,6 +70,11 @@ export default function DashboardPage() {
     setIsAddModalOpen(false);
   };
 
+  const handleEdit = (id: string) => {
+    console.log('Edit coin:', id);
+    // Edit functionality to be implemented
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between gap-4">
@@ -74,13 +86,23 @@ export default function DashboardPage() {
             className="max-w-[300px]"
           />
           <Select value={selectedChain} onValueChange={setSelectedChain}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="All chains" />
+            <SelectTrigger className="w-[200px]">
+              <SelectValue>
+                {selectedChain === "all" ? (
+                  "All chains"
+                ) : (
+                  <Chain chainId={selectedChain} />
+                )}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {CHAIN_OPTIONS.map(chain => (
-                <SelectItem key={chain} value={chain.toLowerCase()}>
-                  {chain}
+                <SelectItem key={chain} value={chain}>
+                  {chain === "all" ? (
+                    "All chains"
+                  ) : (
+                    <Chain chainId={chain} />
+                  )}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -88,14 +110,17 @@ export default function DashboardPage() {
         </div>
         <Button onClick={() => setIsAddModalOpen(true)}>+ Add Coin Data</Button>
       </div>
-      
+
       <DataTable 
-      // @ts-ignore
         data={data} 
-        searchQuery={searchQuery} 
-        selectedChain={selectedChain}
-        onUpdate={setData}
         isLoading={isLoading}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => {
+          setCurrentPage(page);
+          fetchData(searchQuery, selectedChain, page);
+        }}
+        onEdit={handleEdit}
       />
       
       <CoinFormModal 
