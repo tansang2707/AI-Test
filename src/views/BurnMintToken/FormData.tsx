@@ -148,7 +148,7 @@ const FormData: FunctionComponent<IFromData> = ({
           url={url}
         >
           <Button
-            variant="destructive"
+            variant="secondary"
             disabled={!isEmpty(formState.errors) || !formState.isDirty}
             className="min-w-[80px] h-9"
           >
