@@ -88,8 +88,9 @@ export default function DashboardPage() {
         </div>
         <Button onClick={() => setIsAddModalOpen(true)}>+ Add Coin Data</Button>
       </div>
-
+      
       <DataTable 
+      // @ts-ignore
         data={data} 
         searchQuery={searchQuery} 
         selectedChain={selectedChain}
