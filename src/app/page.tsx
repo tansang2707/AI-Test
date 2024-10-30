@@ -1,5 +1,20 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  redirect("/burn-mint-token");
+  const router = useRouter();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    
+    if (typeof jwt === "string") {
+      router.push("/dashboard");
+    } else {
+      router.push("/signin");
+    }
+  }, [router]);
+
+  return null;
 }

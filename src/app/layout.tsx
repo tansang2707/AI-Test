@@ -4,18 +4,17 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-import Layout from "@/components/Layout";
 import Coin98AdapterProvider from "@/providers/Coin98WalletProvider";
 import Coin98AdapterModal from "@/providers/Coin98AdapterModal";
 import AppProvider from "@/providers/AppProvider";
 import { Toaster } from "@/components/ui/toaster"
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   // variable: "--font-geist-sans",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   // variable: "--font-geist-mono",
 });
 
@@ -44,7 +43,8 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Layout>{children}</Layout>
+              {/* <Layout>{children}</Layout> */}
+              {children}
             </ThemeProvider>
           </AppProvider>
           <Coin98AdapterModal />

@@ -1,3 +1,5 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -15,12 +17,21 @@ import {
 } from "@/components/ui/sidebar";
 import ButtonConnectWallet from "./ButtonConnectWallet";
 import UserInfo from "./UserInfo";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface ILayout {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: ILayout) {
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    router.push("/signin");
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -41,10 +52,13 @@ export default function Layout({ children }: ILayout) {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <div className="flex-grow flex justify-end">
+          <div className="flex-grow flex justify-end gap-2">
             <ButtonConnectWallet>
               <UserInfo />
             </ButtonConnectWallet>
+            <Button variant="outline" onClick={handleSignOut}>
+              Sign out
+            </Button>
           </div>
         </header>
         {children}
