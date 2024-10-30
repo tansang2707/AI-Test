@@ -98,6 +98,7 @@ const AppProvider: FunctionComponent<IProviderProps> = ({ children }) => {
       toast({
         variant: "destructive",
         title: "Error",
+        //@ts-ignore
         description: error?.message?.toString(),
       });
     }

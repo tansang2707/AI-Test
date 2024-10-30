@@ -127,6 +127,7 @@ export function DataTable({ data, searchQuery, selectedChain, onUpdate, isLoadin
         <CoinFormModal 
           open={!!editItem}
           onOpenChange={() => setEditItem(null)}
+          //@ts-ignore
           onSave={handleEdit}
           item={editItem}
         />

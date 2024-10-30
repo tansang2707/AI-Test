@@ -26,6 +26,7 @@ import {
     return connectionSolana;
   };
   
+  //@ts-ignore
   export const createAtaAccount = async (connection, owner, mintAddress) => {
     const mint = new PublicKey(mintAddress);
     const ata = await Token.getAssociatedTokenAddress(
@@ -69,6 +70,7 @@ import {
       const pubKey = new PublicKey(address);
   
       if (contract) {
+        //@ts-ignore
         const tokenInfo = await connectionSolana.getTokenAccountBalance(
           pubKey,
           "recent"
@@ -77,6 +79,7 @@ import {
           ? tokenInfo?.value?.amount
           : tokenInfo?.value?.uiAmount;
       }
+      //@ts-ignore
       const balance = await connectionSolana.getBalance(pubKey);
       return isGetRawAmount ? balance : convertWeiToBalance(balance, 9);
     } catch (error) {

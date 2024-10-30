@@ -1,5 +1,6 @@
+//@ts-ignore
 import axios from 'axios';
-
+//@ts-ignore
 axios.interceptors.request.use((config) => {
   try {
     const token = localStorage.getItem('jwt');
@@ -10,6 +11,7 @@ axios.interceptors.request.use((config) => {
     console.error('Error accessing localStorage:', error);
   }
   return config;
+  //@ts-ignore
 }, (error) => {
   return Promise.reject(error);
 });

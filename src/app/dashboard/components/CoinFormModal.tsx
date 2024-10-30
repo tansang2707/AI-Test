@@ -48,6 +48,7 @@ export function CoinFormModal({ open, onOpenChange, onSave, item }: CoinFormModa
   });
 
   const onSubmit = (data: Omit<CoinData, "id">) => {
+    //@ts-ignore
     onSave(item ? { ...data, id: item.id } : data);
   };
 

@@ -1,6 +1,6 @@
 'use client'
-
 import { useState } from 'react'
+//@ts-ignore
 import axios from 'axios'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"

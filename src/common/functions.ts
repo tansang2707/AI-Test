@@ -100,7 +100,7 @@ export const getChainById = (chainId: string) => {
 export const getChainSymbol = (chain: string) =>
   get(get(CHAIN_DATA, chain), 'symbol', '');
 
-export const upperCaseFirstLetter = (lower) => {
+export const upperCaseFirstLetter = (lower: string) => {
   if (!lower) return lower;
   const upper = lower.replace(/^\w/, (chr) => chr.toUpperCase());
   return upper;
